@@ -371,9 +371,7 @@ PRODUCT_PACKAGES += \
 
 # Memtrack HAL
 PRODUCT_PACKAGES += \
-    memtrack.sm6150 \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service
+    vendor.qti.hardware.memtrack-service
 
 #Bluetooth SAR HAL
 PRODUCT_PACKAGES_DEBUG += \
