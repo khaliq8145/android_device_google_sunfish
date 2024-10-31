@@ -1,6 +1,5 @@
 # All blobs below are extracted from the release mentioned in proprietary-files.txt
 
-# libril-qcril-hook-oem depends on libril, which is a gnu makefile target
 # lowi-server, libcne, libwqe depend on libwpa_client, which is a gnu makefile target
 
 vendor/app/CACertService/CACertService.apk
@@ -725,7 +724,7 @@ vendor/lib/librcc.so
 vendor/lib/libril-qc-logger.so
 vendor/lib/libril-qc-ltedirectdisc.so
 vendor/lib/libril-qc-radioconfig.so
-vendor/lib/libril-qcril-hook-oem.so;DISABLE_CHECKELF
+vendor/lib/libril-qcril-hook-oem.so
 vendor/lib/librilqmiservices.so
 vendor/lib/librmnetctl.so
 vendor/lib/librmp.so
@@ -1185,7 +1184,7 @@ vendor/lib64/libril-qc-hal-qmi.so
 vendor/lib64/libril-qc-logger.so
 vendor/lib64/libril-qc-ltedirectdisc.so
 vendor/lib64/libril-qc-radioconfig.so
-vendor/lib64/libril-qcril-hook-oem.so;DISABLE_CHECKELF
+vendor/lib64/libril-qcril-hook-oem.so
 vendor/lib64/librilqmiservices.so
 vendor/lib64/librmnetctl.so
 vendor/lib64/librmp.so
