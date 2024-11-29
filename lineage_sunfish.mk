@@ -27,7 +27,7 @@ RISING_PACKAGE_TYPE := PIXEL_GAPPS
 # Lunch banner maintainer variable
 RISING_MAINTAINER=Bias_khaliq
 
-disable/enable blur support
+# Disable/enable blur support
 TARGET_ENABLE_BLUR := true
 
 # whether to ship aperture camera
