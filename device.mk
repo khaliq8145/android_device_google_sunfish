@@ -813,16 +813,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/powerhint.json:$(TARGET_COPY_OUT_VENDOR)/etc/powerhint.json
 
-# Custom Infinity Properties
-PRODUCT_SYSTEM_PROPERTIES += \
-    ro.infinity.soc=Snapdragon 730G \
-    ro.infinity.battery=3140 mAh \
-    ro.infinity.display=1080 x 2340, 60 Hz \
-    ro.infinity.camera=12.2MP + 8MP
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.product.marketname=Google Pixel 4a
-
 # Vendor verbose logging default property
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PROPERTY_OVERRIDES += \
