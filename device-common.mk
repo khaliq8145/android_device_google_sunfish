@@ -65,7 +65,7 @@ persist.vendor.bt.aac_frm_ctl.enabled=true
 # Set lmkd options
 PRODUCT_PRODUCT_PROPERTIES += \
 	ro.config.low_ram ?= false \
-	ro.lmk.log_stats = false \
+	ro.lmk.log_stats = true \
 
 # charger
 PRODUCT_PRODUCT_PROPERTIES += \
