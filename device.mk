@@ -436,6 +436,22 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libc2dcolorconvert
 
+# OMX
+PRODUCT_PACKAGES += \
+    android.hardware.media.omx@1.0-impl \
+    android.hardware.media.omx@1.0-service \
+    libstagefright_omx.vendor \
+    libavservices_minijail \
+    libavservices_minijail.vendor
+
+# Enable Codec 2.0
+PRODUCT_PACKAGES += \
+    libqcodec2 \
+    vendor.qti.media.c2@1.0-service \
+    media_codecs_c2.xml \
+    codec2.vendor.ext.policy \
+    codec2.vendor.base.policy
+
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.omx_default_rank=512
 
