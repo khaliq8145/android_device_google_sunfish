@@ -470,7 +470,6 @@ PRODUCT_PACKAGES_DEBUG += \
 endif
 
 PRODUCT_PACKAGES += \
-    sensors.$(PRODUCT_HARDWARE) \
     android.hardware.sensors@2.0-service.multihal
 
 PRODUCT_PACKAGES += \
