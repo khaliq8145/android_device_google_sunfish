@@ -30,6 +30,7 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/qcom/wlan/legacy \
     system/chre/host/hal_generic \
     vendor/google/camera \
+    vendor/google/tools/power-anomaly-qcril \
     vendor/qcom/sm8150 \
     vendor/qcom/sm8150/proprietary/commonsys/telephony-apps/DataStatusNotification \
     vendor/qcom/sm8150/proprietary/gps \
@@ -435,6 +436,22 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libc2dcolorconvert
 
+# OMX
+PRODUCT_PACKAGES += \
+    android.hardware.media.omx@1.0-impl \
+    android.hardware.media.omx@1.0-service \
+    libstagefright_omx.vendor \
+    libavservices_minijail \
+    libavservices_minijail.vendor
+
+# Enable Codec 2.0
+PRODUCT_PACKAGES += \
+    libqcodec2 \
+    vendor.qti.media.c2@1.0-service \
+    media_codecs_c2.xml \
+    codec2.vendor.ext.policy \
+    codec2.vendor.base.policy
+
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.omx_default_rank=512
 
@@ -547,6 +564,7 @@ endif
 
 # Wifi
 PRODUCT_PACKAGES += \
+    android.hardware.wifi-service \
     wificond \
     libwpa_client \
     WifiOverlay
@@ -620,7 +638,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 # Subsystem ramdump
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.sys.ssr.enable_ramdumps=1
+    persist.vendor.sys.ssr.enable_ramdumps=0
 endif
 
 # Subsystem silent restart
@@ -644,11 +662,11 @@ PRODUCT_PACKAGES += \
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 # b/36703476: Set default log size to 1M
 PRODUCT_PROPERTY_OVERRIDES += \
-  ro.logd.size=1M
+  ro.logd.size=256K
 # b/114766334: persist all logs by default rotating on 30 files of 1MiB
 PRODUCT_PROPERTY_OVERRIDES += \
-  logd.logpersistd=logcatd \
-  logd.logpersistd.size=30
+  logd.logpersistd= \
+  logd.logpersistd.size=5
 endif
 
 # Dumpstate HAL
@@ -715,7 +733,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.systemuicompilerfilter=speed
 
 # Enable stats logging in LMKD
-TARGET_LMKD_STATS_LOG := true
+TARGET_LMKD_STATS_LOG := false
 
 # default usb oem functions
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
@@ -741,7 +759,11 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += debug.sf.earlyGl.app.duration=21000000
 
 # Enable backpressure for GL comp
 PRODUCT_PROPERTY_OVERRIDES += \
-    debug.sf.enable_gl_backpressure=1
+    debug.sf.enable_gl_backpressure=0
+
+# Configure renderengine backend
+PRODUCT_PRODUCT_PROPERTIES += \
+    debug.renderengine.backend=skiavkthreaded
 
 # Do not skip init trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
@@ -814,7 +836,7 @@ PRODUCT_COPY_FILES += \
 # Vendor verbose logging default property
 ifneq (,$(filter eng, $(TARGET_BUILD_VARIANT)))
 PRODUCT_PROPERTY_OVERRIDES += \
-    persist.vendor.verbose_logging_enabled=true
+    persist.vendor.verbose_logging_enabled=false
 else
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.vendor.verbose_logging_enabled=false
@@ -861,3 +883,6 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota_retrofit.mk)
 # Set system properties identifying the chipset
 PRODUCT_VENDOR_PROPERTIES += ro.soc.manufacturer=Qualcomm
 PRODUCT_VENDOR_PROPERTIES += ro.soc.model=SM7150
+
+# Update soong config namespace
+-include vendor/google/build/soong/soong_config_namespace/qcril_oemhook.mk

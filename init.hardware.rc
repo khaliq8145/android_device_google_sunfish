@@ -81,16 +81,16 @@ on init && property:vendor.skip.init=0
 
     # configure governor settings for little cluster
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 350
     write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 20000
 
     # configure governor settings for big cluster
     write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor schedutil
-    write /sys/devices/system/cpu/cpu6/cpufreq/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpu6/cpufreq/schedutil/up_rate_limit_us 350
     write /sys/devices/system/cpu/cpu6/cpufreq/schedutil/down_rate_limit_us 20000
 
     # ZRAM setup
-    write /sys/block/zram0/comp_algorithm lz4
+    write /sys/block/zram0/comp_algorithm zstd
     write /proc/sys/vm/page-cluster 0
 
     # Some user code relies on ro.boot.hardware.revision
@@ -220,11 +220,11 @@ on late-fs
     write /sys/module/kdebuginfo/parameters/build_info "${ro.product.name}-${ro.build.type} ${ro.build.version.incremental}"
 
 on post-fs-data
-    mkdir /vendor/data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
+    mkdir /vendor/data/tombstones 0000 system system
+    mkdir /tombstones/modem 0000 system system
+    mkdir /tombstones/lpass 0000 system system
+    mkdir /tombstones/wcnss 0000 system system
+    mkdir /tombstones/dsps 0000 system system
     mkdir /data/vendor/hbtp 0750 system system
     mkdir /data/vendor/tloc 0700 system drmrpc
     mkdir /data/vendor/nnhal 0700 system system
@@ -449,14 +449,14 @@ on property:sys.boot_completed=1
 
     # Enable ZRAM on boot_complete
     swapon_all /vendor/etc/fstab.${ro.boot.hardware.platform}
-    write /proc/sys/vm/swappiness 100
+    write /proc/sys/vm/swappiness 70
 
-    # Setup runtime cpusets
+# Setup runtime cpusets
     write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 0-5,7
-    write /dev/cpuset/background/cpus 4-5
-    write /dev/cpuset/system-background/cpus 2-5
-    write /dev/cpuset/restricted/cpus 2-5
+    write /dev/cpuset/foreground/cpus 0-3,5-6
+    write /dev/cpuset/background/cpus 0-1
+    write /dev/cpuset/system-background/cpus 0-3
+    write /dev/cpuset/restricted/cpus 0-3
 
     # HardwareInfo needs to be able to read display info
     chmod 444 /sys/devices/platform/soc/soc:qcom,dsi-display/panel_info/panel0/serial_number
@@ -600,14 +600,14 @@ service vendor.ssr_setup /vendor/bin/ssr_setup
 on property:persist.vendor.sys.ssr.restart_level=*
     start vendor.ssr_setup
 
-on post-fs-data && property:persist.vendor.sys.ssr.enable_ramdumps=1 && property:vendor.skip.init=0
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
-    mkdir /data/vendor/wifidump 771 root system
-    mkdir /data/vendor/ramdump 771 root system
-    mkdir /data/vendor/ssrdump 771 root system
-    mkdir /data/vendor/ssrlog  775 root system
-    start vendor.ss_ramdump
-    start vendor.crash_event_logger
+on post-fs-data && property:persist.vendor.sys.ssr.enable_ramdumps=0 && property:vendor.skip.init=0
+    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
+    mkdir /data/vendor/wifidump 000 root system
+    mkdir /data/vendor/ramdump 000 root system
+    mkdir /data/vendor/ssrdump 000 root system
+    mkdir /data/vendor/ssrlog  000 root system
+    stop vendor.ss_ramdump
+    stop vendor.crash_event_logger
 
 on property:persist.vendor.sys.ssr.enable_ramdumps=0
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
