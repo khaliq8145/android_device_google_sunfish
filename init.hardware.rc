@@ -443,6 +443,14 @@ on property:sys.boot_completed=1
     chown system system /dev/sys/fs/by-name/userdata/gc_segment_mode
     chown system system /dev/sys/fs/by-name/userdata/gc_reclaimed_segments
 
+    # Runtime fs tuning
+    write /sys/block/sda/queue/nr_requests 128
+    write /sys/block/sda/queue/iostats 0
+    write /sys/block/sde/queue/nr_requests 128
+    write /sys/block/sde/queue/iostats 0
+    write /sys/block/sdf/queue/nr_requests 128
+    write /sys/block/sdf/queue/iostats 0
+
     # Back to default VM settings
     write /proc/sys/vm/dirty_expire_centisecs 3000
     write /proc/sys/vm/dirty_background_ratio 10
