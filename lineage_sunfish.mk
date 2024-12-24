@@ -25,7 +25,7 @@ TARGET_BOOT_ANIMATION_RES := 1080
 RISING_PACKAGE_TYPE := PIXEL
 
 # Lunch banner maintainer variable
-RISING_MAINTAINER=Bias_khaliq
+RISING_MAINTAINER="Bias Khaliq (Morpheus)"
 
 # Disable/enable blur support
 TARGET_ENABLE_BLUR := true
@@ -47,6 +47,6 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     BuildFingerprint=google/sunfish/sunfish:13/TQ3A.230805.001.S1/10786265:user/release-keys \
     DeviceProduct=sunfish \
     RisingChipset="Snapdragon 730G" \
-    RisingMaintainer=Bias_khaliq
+    RisingMaintainer="Bias Khaliq"
 
 $(call inherit-product, vendor/google/sunfish/sunfish-vendor.mk)
