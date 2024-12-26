@@ -11,6 +11,7 @@ persist.rild.nitz_short_ons_3=
 DEVICE_PROVISIONED=1
 
 debug.sf.hw=1
+debug.egl.hw=1
 debug.gralloc.enable_fb_ubwc=1
 debug.mdpcomp.logs=0
 debug.sf.predict_hwc_composition_strategy=0
@@ -124,3 +125,40 @@ bluetooth.profile.sap.server.enabled?=true
 
 # Graphics
 debug.sdm.support_writeback=0
+
+# Debughing Disable Vsync (Experimental)
+# SurfaceFlinger (sf)
+debug.sf.deferglcontext=0
+debug.sf.enable_hwc_vds=0
+debug.sf.cpusets=0
+debug.sf.vsync_switch=0
+debug.sf.triple_buffer=0
+debug.sf.maxlayers=0xff
+   
+# HardwareUi (hwui)
+debug.hwui.render_ahead_mode=0
+debug.hwui.render_ahead=false
+debug.hwui.dirty_region_render=false
+debug.hwui.disable_vsync=true
+debug.hwui.vsync_disable=true
+   
+# GPU
+debug.debug.gr.swapinterval=0
+debug.debug.gralloc.wfd_enable=1
+debug.debug.gralloc.map_fb_memory=1
+debug.debug.gralloc.gpu_compression_disable=1
+debug.debug.gralloc.vram_debug=0
+   
+# HardwareUi (hwui)
+debug.hwui.render_ahead_mode=0
+debug.hwui.render_ahead=false
+debug.hwui.dirty_region_render=false
+debug.hwui.disable_vsync=true
+debug.hwui.vsync_disable=true
+   
+# GPU
+debug.debug.gr.swapinterval=0
+debug.debug.gralloc.wfd_enable=1
+debug.debug.gralloc.map_fb_memory=1
+debug.debug.gralloc.gpu_compression_disable=1
+debug.debug.gralloc.vram_debug=0
