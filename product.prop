@@ -12,7 +12,6 @@ DEVICE_PROVISIONED=1
 
 debug.sf.hw=1
 debug.gralloc.enable_fb_ubwc=1
-debug.egl.hw=0
 debug.mdpcomp.logs=0
 debug.sf.predict_hwc_composition_strategy=0
 
