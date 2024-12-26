@@ -143,11 +143,11 @@ debug.hwui.disable_vsync=true
 debug.hwui.vsync_disable=true
    
 # GPU
-debug.debug.gr.swapinterval=0
-debug.debug.gralloc.wfd_enable=1
-debug.debug.gralloc.map_fb_memory=1
-debug.debug.gralloc.gpu_compression_disable=1
-debug.debug.gralloc.vram_debug=0
+debug.gr.swapinterval=0
+debug.gralloc.wfd_enable=1
+debug.gralloc.map_fb_memory=1
+debug.gralloc.gpu_compression_disable=1
+debug.gralloc.vram_debug=0
    
 # HardwareUi (hwui)
 debug.hwui.render_ahead_mode=0
@@ -155,10 +155,3 @@ debug.hwui.render_ahead=false
 debug.hwui.dirty_region_render=false
 debug.hwui.disable_vsync=true
 debug.hwui.vsync_disable=true
-   
-# GPU
-debug.debug.gr.swapinterval=0
-debug.debug.gralloc.wfd_enable=1
-debug.debug.gralloc.map_fb_memory=1
-debug.debug.gralloc.gpu_compression_disable=1
-debug.debug.gralloc.vram_debug=0
