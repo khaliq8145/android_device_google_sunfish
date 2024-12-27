@@ -747,7 +747,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Configure renderengine backend
 PRODUCT_PRODUCT_PROPERTIES += \
-    debug.renderengine.backend=skiavkthreaded
+    debug.renderengine.backend=skiavkthreaded \
+    debug.sf.enable_hwc_vds=0 \
+    debug.sf.predict_hwc_composition_strategy=0 \
+    debug.gr.swapinterval=0 \
+    debug.hwui.render_dirty_regions=false
 
 # Do not skip init trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
