@@ -84,12 +84,12 @@ on init && property:vendor.skip.init=0
 
     # configure governor settings for little cluster
     write /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor schedutil
-    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/up_rate_limit_us 350
     write /sys/devices/system/cpu/cpu0/cpufreq/schedutil/down_rate_limit_us 20000
 
     # configure governor settings for big cluster
     write /sys/devices/system/cpu/cpu6/cpufreq/scaling_governor schedutil
-    write /sys/devices/system/cpu/cpu6/cpufreq/schedutil/up_rate_limit_us 500
+    write /sys/devices/system/cpu/cpu6/cpufreq/schedutil/up_rate_limit_us 350
     write /sys/devices/system/cpu/cpu6/cpufreq/schedutil/down_rate_limit_us 20000
 
     # ZRAM setup
@@ -224,11 +224,11 @@ on late-fs
     write /sys/module/kdebuginfo/parameters/build_info "${ro.product.name}-${ro.build.type} ${ro.build.version.incremental}"
 
 on post-fs-data
-    mkdir /vendor/data/tombstones 0771 system system
-    mkdir /tombstones/modem 0771 system system
-    mkdir /tombstones/lpass 0771 system system
-    mkdir /tombstones/wcnss 0771 system system
-    mkdir /tombstones/dsps 0771 system system
+    mkdir /vendor/data/tombstones 0000 system system
+    mkdir /tombstones/modem 0000 system system
+    mkdir /tombstones/lpass 0000 system system
+    mkdir /tombstones/wcnss 0000 system system
+    mkdir /tombstones/dsps 0000 system system
     mkdir /data/vendor/hbtp 0750 system system
     mkdir /data/vendor/tloc 0700 system drmrpc
     mkdir /data/vendor/nnhal 0700 system system
@@ -450,6 +450,14 @@ on property:sys.boot_completed=1
     chown system system /dev/sys/fs/by-name/userdata/gc_segment_mode
     chown system system /dev/sys/fs/by-name/userdata/gc_reclaimed_segments
 
+    # Runtime fs tuning
+    write /sys/block/sda/queue/nr_requests 128
+    write /sys/block/sda/queue/iostats 0
+    write /sys/block/sde/queue/nr_requests 128
+    write /sys/block/sde/queue/iostats 0
+    write /sys/block/sdf/queue/nr_requests 128
+    write /sys/block/sdf/queue/iostats 0
+
     # Back to default VM settings
     write /proc/sys/vm/dirty_expire_centisecs 3000
     write /proc/sys/vm/dirty_background_ratio 10
@@ -460,10 +468,10 @@ on property:sys.boot_completed=1
 
     # Setup runtime cpusets
     write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 0-5,7
-    write /dev/cpuset/background/cpus 4-5
-    write /dev/cpuset/system-background/cpus 2-5
-    write /dev/cpuset/restricted/cpus 2-5
+    write /dev/cpuset/foreground/cpus 0-3,5-6
+    write /dev/cpuset/background/cpus 0-3
+    write /dev/cpuset/system-background/cpus 0-1
+    write /dev/cpuset/restricted/cpus 0-3
 
     # Setup runtime blkio
     # value for group_idle is us
@@ -624,14 +632,14 @@ service vendor.ssr_setup /vendor/bin/ssr_setup
 on property:persist.vendor.sys.ssr.restart_level=*
     start vendor.ssr_setup
 
-on post-fs-data && property:persist.vendor.sys.ssr.enable_ramdumps=1 && property:vendor.skip.init=0
-    write /sys/module/subsystem_restart/parameters/enable_ramdumps 1
-    mkdir /data/vendor/wifidump 771 root system
-    mkdir /data/vendor/ramdump 771 root system
-    mkdir /data/vendor/ssrdump 771 root system
-    mkdir /data/vendor/ssrlog  775 root system
-    start vendor.ss_ramdump
-    start vendor.crash_event_logger
+on post-fs-data && property:persist.vendor.sys.ssr.enable_ramdumps=0 && property:vendor.skip.init=0
+    write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
+    mkdir /data/vendor/wifidump 000 root system
+    mkdir /data/vendor/ramdump 000 root system
+    mkdir /data/vendor/ssrdump 000 root system
+    mkdir /data/vendor/ssrlog  000 root system
+    stop vendor.ss_ramdump
+    stop vendor.crash_event_logger
 
 on property:persist.vendor.sys.ssr.enable_ramdumps=0
     write /sys/module/subsystem_restart/parameters/enable_ramdumps 0
