@@ -12,15 +12,7 @@ DEVICE_PROVISIONED=1
 
 # Debugging (Experimental)
 debug.sf.hw=1
-debug.sf.enable_hwc_vds=0
-debug.sf.predict_hwc_composition_strategy=0
-debug.egl.hw=1
-debug.gr.swapinterval=0
-debug.hwui.render_dirty_regions=false
-debug.hwui.disable_vsync=true
-debug.sdm.support_writeback=0
 debug.gralloc.enable_fb_ubwc=1
-debug.mdpcomp.logs=0
 
 # system props for the cne module
 persist.vendor.cne.feature=1
