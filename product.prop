@@ -12,6 +12,7 @@ DEVICE_PROVISIONED=1
 
 # Debugging (Experimental)
 debug.sf.hw=1
+debug.egl.hw=1
 debug.gralloc.enable_fb_ubwc=1
 
 # system props for the cne module
