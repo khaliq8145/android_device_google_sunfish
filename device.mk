@@ -745,13 +745,25 @@ PRODUCT_DEFAULT_PROPERTY_OVERRIDES += debug.sf.earlyGl.app.duration=21000000
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.sf.enable_gl_backpressure=0
 
-# Configure renderengine backend
+# Configure experimental prop
 PRODUCT_PRODUCT_PROPERTIES += \
     debug.renderengine.backend=skiavkthreaded \
     debug.sf.enable_hwc_vds=0 \
     debug.sf.predict_hwc_composition_strategy=0 \
     debug.gr.swapinterval=0 \
-    debug.hwui.render_dirty_regions=false
+    debug.hwui.render_dirty_regions=false \
+    debug.sf.deferglcontext=0 \
+    debug.sf.cpusets=0 \
+    debug.sf.vsync_switch=0 \
+    debug.sf.triple_buffer=0 \
+    debug.sf.maxlayers=0xff \
+    debug.hwui.render_ahead_mode=0 \
+    debug.hwui.render_ahead=false \
+    debug.hwui.disable_vsync=true \
+    debug.gralloc.wfd_enable=1 \
+    debug.gralloc.map_fb_memory=1 \
+    debug.gralloc.gpu_compression_disable=1 \
+    debug.gralloc.vram_debug=0
 
 # Do not skip init trigger by default
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
