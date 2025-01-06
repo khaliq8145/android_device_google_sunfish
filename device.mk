@@ -25,12 +25,12 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/interfaces \
     hardware/google/pixel \
     hardware/qcom/sm8150/display \
-    hardware/qcom/sm8150/data/ipacfg-mgr \
     hardware/qcom/sm8150/gps \
     hardware/qcom/wlan/legacy \
     system/chre/host/hal_generic \
     vendor/google/camera \
     vendor/google/tools/power-anomaly-qcril \
+    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um \
     vendor/qcom/sm8150 \
     vendor/qcom/sm8150/proprietary/commonsys/telephony-apps/DataStatusNotification \
     vendor/qcom/sm8150/proprietary/gps \
