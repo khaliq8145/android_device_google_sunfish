@@ -25,49 +25,10 @@ PRODUCT_SOONG_NAMESPACES += \
     hardware/google/interfaces \
     hardware/google/pixel \
     hardware/qcom/sm8150/display \
-    hardware/qcom/sm8150/data/ipacfg-mgr \
     hardware/qcom/sm8150/gps \
     hardware/qcom/wlan/legacy \
     system/chre/host/hal_generic \
-    vendor/google/camera \
-    vendor/google/tools/power-anomaly-qcril \
-    vendor/qcom/sm8150 \
-    vendor/qcom/sm8150/proprietary/commonsys/telephony-apps/DataStatusNotification \
-    vendor/qcom/sm8150/proprietary/gps \
-    vendor/qcom/sm8150/proprietary/qmi \
-    vendor/qcom/sm8150/codeaurora/location \
-    vendor/google/interfaces \
-    vendor/google_devices/common/proprietary/confirmatioui_hal \
-    vendor/google_nos/host/android \
-    vendor/google_nos/test/system-test-harness
-
-# Include sensors soong namespace
-PRODUCT_SOONG_NAMESPACES += \
-    vendor/qcom/sensors \
-    vendor/google/tools/sensors
-
-# Single vendor RIL/Telephony/data with SM7250
-DEVICE_USES_SM7250_QCRIL_TELEPHONY := true
-
-ifeq ($(DEVICE_USES_SM7250_QCRIL_TELEPHONY), true)
-  PRODUCT_SOONG_NAMESPACES += \
-      vendor/qcom/sm7250/codeaurora/commonsys/telephony/ims/ims-ext-common \
-      vendor/qcom/sm7250/codeaurora/dataservices/rmnetctl \
-      vendor/qcom/sm7250/proprietary/commonsys/qcrilOemHook \
-      vendor/qcom/sm7250/proprietary/commonsys/telephony-apps/ims \
-      vendor/qcom/sm7250/proprietary/commonsys/telephony-apps/QtiTelephonyService \
-      vendor/qcom/sm7250/proprietary/commonsys/telephony-apps/xdivert \
-      vendor/qcom/sm7250/proprietary/qcril-data-hal \
-      vendor/qcom/sm7250/proprietary/qcril-hal \
-      vendor/qcom/sm7250/proprietary/data
-  else
-  $(warning DEVICE_USES_SM7250_QCRIL_TELEPHONY is disabled)
-
-  PRODUCT_SOONG_NAMESPACES += \
-      vendor/qcom/sm7150/codeaurora/commonsys/telephony/ims \
-      vendor/qcom/sm7150/proprietary/qcril-data-hal \
-      vendor/qcom/sm7150/proprietary/qcril-hal
-endif
+    vendor/qcom/opensource/data-ipa-cfg-mgr-legacy-um
 
 PRODUCT_PROPERTY_OVERRIDES += \
     keyguard.no_require_sim=true
@@ -371,9 +332,7 @@ PRODUCT_PACKAGES += \
 
 # Memtrack HAL
 PRODUCT_PACKAGES += \
-    memtrack.sm6150 \
-    android.hardware.memtrack@1.0-impl \
-    android.hardware.memtrack@1.0-service
+    vendor.qti.hardware.memtrack-service
 
 #Bluetooth SAR HAL
 PRODUCT_PACKAGES_DEBUG += \
@@ -391,9 +350,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.bluetooth.emb_wp_mode=false \
     ro.vendor.bluetooth.wipower=false
-
-# Bluetooth ftmdaemon needs libbt-hidlclient.so
-PRODUCT_SOONG_NAMESPACES += vendor/qcom/proprietary/bluetooth/hidl_client
 
 # DRM HAL
 PRODUCT_PACKAGES += \
@@ -425,17 +381,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     android.hardware.health.storage@1.0-service
 
-PRODUCT_PACKAGES += \
-    libmm-omxcore \
-    libOmxCore \
-    libstagefrighthw \
-    libOmxVdec \
-    libOmxVenc \
-    libc2dcolorconvert
-
-PRODUCT_PROPERTY_OVERRIDES += \
-    debug.stagefright.omx_default_rank=512
-
 # Create input surface on the framework side
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.stagefright.c2inputsurface=-1 \
@@ -444,10 +389,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     debug.media.transcoding.codec_max_operating_rate_720P=240 \
     debug.media.transcoding.codec_max_operating_rate_1080P=120 \
-
-# Disable OMX
-PRODUCT_PROPERTY_OVERRIDES += \
-    vendor.media.omx=0 \
 
 # Enable ECO service
 QC2_HAVE_ECO_SERVICE := true
@@ -600,16 +541,8 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media_codecs.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs.xml \
-    $(LOCAL_PATH)/media_codecs_omx.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_omx.xml \
     $(LOCAL_PATH)/media_codecs_performance_c2.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_performance_c2.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_audio.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_telephony.xml \
-    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video.xml \
     $(LOCAL_PATH)/media_profiles_V1_0.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_profiles_V1_0.xml
-
-# Vendor seccomp policy files for media components:
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/seccomp_policy/mediacodec.policy:$(TARGET_COPY_OUT_VENDOR)/etc/seccomp_policy/mediacodec.policy
 
 PRODUCT_PROPERTY_OVERRIDES += \
     vendor.audio.snd_card.open.retries=50
