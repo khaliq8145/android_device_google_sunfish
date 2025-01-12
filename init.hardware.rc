@@ -443,6 +443,12 @@ on property:sys.boot_completed=1
     # Runtime fs tuning
     write /sys/block/sda/queue/nr_requests 128
     write /sys/block/sda/queue/iostats 0
+    write /sys/block/sdb/queue/nr_requests 128
+    write /sys/block/sdb/queue/iostats 0
+    write /sys/block/sdc/queue/nr_requests 128
+    write /sys/block/sdc/queue/iostats 0
+    write /sys/block/sdd/queue/nr_requests 128
+    write /sys/block/sdd/queue/iostats 0
     write /sys/block/sde/queue/nr_requests 128
     write /sys/block/sde/queue/iostats 0
     write /sys/block/sdf/queue/nr_requests 128
@@ -458,7 +464,7 @@ on property:sys.boot_completed=1
 
     # Setup runtime cpusets
     write /dev/cpuset/top-app/cpus 0-7
-    write /dev/cpuset/foreground/cpus 0-3,5-6
+    write /dev/cpuset/foreground/cpus 0-3,5-7
     write /dev/cpuset/background/cpus 0-1
     write /dev/cpuset/system-background/cpus 0-3
     write /dev/cpuset/restricted/cpus 0-3
